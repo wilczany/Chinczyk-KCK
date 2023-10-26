@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+Actor User
+
+User -> gra: rozpocznij grę
+
+User -> gra: rzuć kostką
+
+gra -> view: wyświetl kostkę
+gra -> Model_Game: podaj
+
+@enduml
