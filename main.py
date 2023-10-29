@@ -1,6 +1,12 @@
+# from src.controller.view.menu import App
+from src.controller.view.view import drawBoard
+from src.controller.view.view import game
+from asciimatics.screen import Screen
+import scrap_engine as se
 
-from src.controller.view.menu import App
+import math
 
 if __name__ == "__main__":
-    App = App()
-    App.run()
+    board = drawBoard()
+    # Screen.wrapper(game, arguments=[board])
+
