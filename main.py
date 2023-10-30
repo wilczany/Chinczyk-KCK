@@ -1,7 +1,6 @@
 # from src.controller.view.menu import App
 from src.controller.view.view import drawBoard
 from src.controller.view.view import game
-from asciimatics.screen import Screen
 import scrap_engine as se
 
 from curses import wrapper
@@ -20,4 +19,4 @@ if __name__ == "__main__":
 
     #mymap.show()  # now a frame with a rectangle and a text above it should be shown
     
-    drawBoard()
+    drawBoard(2)

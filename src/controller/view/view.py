@@ -1,6 +1,3 @@
-from asciimatics.effects import Cycle, Stars
-from asciimatics.renderers import FigletText
-from asciimatics.scene import Scene
 import scrap_engine as se
 import curses
 
@@ -14,10 +11,11 @@ def drawBoard(players: int):
     # [2] : red
     # [3] : yellow
     home_lines = [[] for x in range(5)]
-    pawns = [[]for x in range(players)]
+    pawns = [[] for x in range(players)]
+    base = [[] for x in range(players)]
 
     screen = se.Map(background=" ")
-    with open("track.txt") as file:
+    with open("resources/track.txt") as file:
         for line in file:
             track_cords.append(tuple(line.strip().split(' : ')))
 
@@ -26,7 +24,7 @@ def drawBoard(players: int):
         tile.add(screen, int(track_cords[i][0]), int(track_cords[i][1]))
         track.append(tile)
 
-    with open("home_lines.txt") as file:
+    with open("resources/home_lines.txt") as file:
         for line in file:
             for i in range(5):
                 x, y = line.strip().split(' : ')
@@ -39,6 +37,11 @@ def drawBoard(players: int):
 
     finish = se.Frame(3, 5, corner_chars=("╔", "╗", "╚", "╝"), state="solid")
     finish.add(screen, 20, 12)
+
+    with open ("resources/home_base.txt") as file:
+        for line in file:
+            for i in range(players):
+
 
 
     for i in range(players):
