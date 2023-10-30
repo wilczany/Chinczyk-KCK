@@ -1,4 +1,4 @@
-import npyscreen
+import npy  screen
 
 
 class App(npyscreen.NPSApp):

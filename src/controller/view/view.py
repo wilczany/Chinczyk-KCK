@@ -2,31 +2,65 @@ from asciimatics.effects import Cycle, Stars
 from asciimatics.renderers import FigletText
 from asciimatics.scene import Scene
 import scrap_engine as se
-import csv
+import curses
 
 
-def drawBoard():
-    matrix = [[]]
+def drawBoard(players: int):
     track_cords = []
+    track = []
 
-    screen = se.Map(width=20, height=20, background="+")
-    # read file and write to 2d matrix
-    # with open("plansza.txt") as file:
+    # [0] : green
+    # [1] : blue
+    # [2] : red
+    # [3] : yellow
+    home_lines = [[] for x in range(5)]
+    pawns = [[]for x in range(players)]
 
-    X = se.Object("X", "float", 0)
+    screen = se.Map(background=" ")
+    with open("track.txt") as file:
+        for line in file:
+            track_cords.append(tuple(line.strip().split(' : ')))
 
-    b = se.Frame(4, 4)
-    b.add_ob(X, 1, 1)
-    b.add(screen, 1, 1)
+    for i in range(len(track_cords)):
+        tile = se.Frame(3, 5, state="float")
+        tile.add(screen, int(track_cords[i][0]), int(track_cords[i][1]))
+        track.append(tile)
+
+    with open("home_lines.txt") as file:
+        for line in file:
+            for i in range(5):
+                x, y = line.strip().split(' : ')
+                tile = se.Frame(3, 5, horizontal_chars=['*', '*'],
+                                vertical_chars=['*', '*'], corner_chars='*',
+                                state="float")
+
+                tile.add(screen, int(x), int(y))
+                home_lines[i].append(tile)
+
+    finish = se.Frame(3, 5, corner_chars=("╔", "╗", "╚", "╝"), state="solid")
+    finish.add(screen, 20, 12)
+
+
+    for i in range(players):
+        match i:
+            case 0:
+                for j in range(4):
+                    pawn = se.Object("G")
+                    pawns[i].append(pawn)
+            case 1:
+                for j in range(4):
+                    pawn = se.Object("B")
+                    pawns[i].append(pawn)
+            case 2:
+                for j in range(4):
+                    pawn = se.Object("R")
+                    pawns[i].append(pawn)
+            case 3:
+                for j in range(4):
+                    pawn = se.Object("Y")
+                    pawns[i].append(pawn)
     screen.show()
-
-    # matrix.append(list(line.strip()))
-
-    # with open("track.txt") as file:
-    #     for line in file:
-    #         track_cords.append(tuple(line.strip().split(' : ')))
-
-    return matrix
+    return track, home_lines, finish, pawns
 
 
 def game(screen, matrix):
