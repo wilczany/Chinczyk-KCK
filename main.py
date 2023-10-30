@@ -3,7 +3,6 @@ from src.controller.view.view import drawBoard
 from src.controller.view.view import game
 import scrap_engine as se
 
-from curses import wrapper
 
 if __name__ == "__main__":
     # mymap = se.Map(background=" ")  # defines mymap as a map as big as the terminal window with the background " "
@@ -18,5 +17,5 @@ if __name__ == "__main__":
     # myframe.add(mymap, 1, 1)  # adds myframe to (1|1)
 
     #mymap.show()  # now a frame with a rectangle and a text above it should be shown
-    
-    drawBoard(2)
+
+    drawBoard(4)

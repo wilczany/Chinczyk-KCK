@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b76af53-8ed3-4212-9b2a-731659dcce0d" name="Changes" comment="praca z widokiem">
-      <change afterPath="$PROJECT_DIR$/resources/home_base.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controller/view/view_classes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="7b76af53-8ed3-4212-9b2a-731659dcce0d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/home_lines.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/home_tracks.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/plansza.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/plansza.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/home_base.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/home_base.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/home_tracks.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/home_tracks.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/view/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/view/view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/track.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/track.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/view/view_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/view/view_classes.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +26,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
@@ -56,7 +52,6 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resources" />
       <recent name="C:\Users\Mateusz\PycharmProjects\Chinczyk-KCK\src\controller" />
     </key>
   </component>
@@ -69,7 +64,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11 (Chinczyk-KCK)" />
+      <option name="SDK_NAME" value="Python 3.10 (Chinczyk-KCK)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -107,7 +102,8 @@
       <workItem from="1698438390734" duration="6598000" />
       <workItem from="1698592191441" duration="9856000" />
       <workItem from="1698670379234" duration="5258000" />
-      <workItem from="1698678164338" duration="2326000" />
+      <workItem from="1698685041854" duration="1831000" />
+      <workItem from="1698688186454" duration="4688000" />
     </task>
     <task id="LOCAL-00001" summary="praca z widokiem">
       <option name="closed" value="true" />
@@ -143,7 +139,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="praca z widokiem" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Chinczyk_KCK$main.coverage" NAME="main Coverage Results" MODIFIED="1698692747667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/pythonProject$main.coverage" NAME="main Coverage Results" MODIFIED="1697653923086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chinczyk_KCK$main.coverage" NAME="main Coverage Results" MODIFIED="1698679061280" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
