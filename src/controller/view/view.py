@@ -2,8 +2,9 @@ import scrap_engine as se
 from termcolor import colored
 import colorama
 import src.controller.view.view_classes as vc
-from typing import Any
+from typing import Any, List
 from math import floor
+
 
 def drawBoard(players: int):
     track_cords = []
@@ -16,7 +17,7 @@ def drawBoard(players: int):
     home_lines = [[] for x in range(5)]
     pawns = [[] for x in range(players)]
 
-    base = [[Any] for x in range(players)]
+    base: List = [[] for x in range(players)]
 
     screen = se.Map(background=" ")
     with open("resources/track.txt") as file:
@@ -34,10 +35,10 @@ def drawBoard(players: int):
             # tile = se.Frame(3, 5, horizontal_chars=['*', '*'],
             #                 vertical_chars=[colored('*', "red"), '*'], corner_chars='*',
             #                 state="float")
-            tile = vc.HomeLineTile(floor(count/4))
+            tile = vc.HomeLineTile(floor(count / 4))
 
             tile.add(screen, int(x), int(y))
-            home_lines[floor(count/4)].append(tile)
+            home_lines[floor(count / 4)].append(tile)
 
     finish = se.Frame(3, 5, corner_chars=("╔", "╗", "╚", "╝"), state="solid")
     finish.add(screen, 20, 12)
@@ -67,8 +68,8 @@ def drawBoard(players: int):
                 for j in range(4):
                     pawn = se.Object(vc.get_colored(i, "Y"))
                     pawns[i].append(pawn)
-    screen.show()
 
+    screen.show()
 
     return track, home_lines, finish, pawns
 

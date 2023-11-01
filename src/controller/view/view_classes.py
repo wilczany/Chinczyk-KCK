@@ -28,13 +28,28 @@ class HomeLineTile(se.Frame):
                          state=state)
 
 
-def get_colored(color: int, char: str):
+class Pawn(se.Object):
+    def __init__(self, color: int):
+        super().__init__(get_colored(color, "@"))
+        self.color = color
+        self.cursor = False
+    def CursorSwitch(self):
+        if self.cursor:
+            self.cursor = False
+            self.rechar(get_colored(self.color, "@"))
+        else:
+            self.cursor = True
+            self.rechar(get_colored(self.color, "@", "on_light_grey"))
+
+
+
+def get_colored(color: int, char: str, bg=None):
     match color:
         case 0:
-            return colored(char, "green")
+            return colored(char, "green", bg)
         case 1:
-            return colored(char, "magenta")
+            return colored(char, "magenta", bg)
         case 2:
-            return colored(char, "red")
+            return colored(char, "red", bg)
         case 3:
-            return colored(char, "yellow")
+            return colored(char, "yellow", bg)
