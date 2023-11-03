@@ -1,8 +1,8 @@
 # from src.controller.view.menu import App
-from src.controller.view.view import drawBoard
+from src.controller.view.view import GameView
 from src.controller.view.view import game
 import scrap_engine as se
-
+from time import sleep
 
 if __name__ == "__main__":
     # mymap = se.Map(background=" ")  # defines mymap as a map as big as the terminal window with the background " "
@@ -18,4 +18,9 @@ if __name__ == "__main__":
 
     #mymap.show()  # now a frame with a rectangle and a text above it should be shown
 
-    drawBoard(4)
+    view = GameView(3)
+    view.move_from_base(0, 0)
+    sleep(2)
+    view.move_from_base(1, 20)
+    view.set_cursor(0)
+

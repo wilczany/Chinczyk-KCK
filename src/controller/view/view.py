@@ -1,77 +1,114 @@
 import scrap_engine as se
-from termcolor import colored
 import colorama
 import src.controller.view.view_classes as vc
-from typing import Any, List
+from typing import List
 from math import floor
 
 
-def drawBoard(players: int):
-    track_cords = []
-    track = []
-    colorama.init()
-    # [0] : green
-    # [1] : blue
-    # [2] : red
-    # [3] : yellow
-    home_lines = [[] for x in range(5)]
-    pawns = [[] for x in range(players)]
 
-    base: List = [[] for x in range(players)]
+class GameView:
+    def __init__(self, players: int):
+        self.track_cords = []
+        self.track = []
 
-    screen = se.Map(background=" ")
-    with open("resources/track.txt") as file:
-        for line in file:
-            track_cords.append(tuple(line.strip().split(' : ')))
+        # [0] : green
+        # [1] : blue
+        # [2] : red
+        # [3] : yellow
 
-    for i in range(len(track_cords)):
-        tile = se.Frame(3, 5, state="float")
-        tile.add(screen, int(track_cords[i][0]), int(track_cords[i][1]))
-        track.append(tile)
+        self.home_lines = [[] for _ in range(4)]
+        self.pawns = [[] for _ in range(players)]
 
-    with open("resources/home_tracks.txt") as file:
-        for count, line in enumerate(file):
-            x, y = line.strip().split(' : ')
-            # tile = se.Frame(3, 5, horizontal_chars=['*', '*'],
-            #                 vertical_chars=[colored('*', "red"), '*'], corner_chars='*',
-            #                 state="float")
-            tile = vc.HomeLineTile(floor(count / 4))
+        self.base = []
 
-            tile.add(screen, int(x), int(y))
-            home_lines[floor(count / 4)].append(tile)
+        colorama.init()
+        # initiate map
 
-    finish = se.Frame(3, 5, corner_chars=("╔", "╗", "╚", "╝"), state="solid")
-    finish.add(screen, 20, 12)
+        self.screen = se.Map(background=" ")
+        with open("resources/track.txt") as file:
+            for line in file:
+                self.track_cords.append(tuple(line.strip().split(' : ')))
 
-    with open("resources/home_base.txt") as file:
-        for count, line in enumerate(file):
-            if count < players:
+        # draw track
+
+        for i in range(len(self.track_cords)):
+            if i == 0:
+                tile = vc.Tile(0)
+            elif i % 10 == 0:
+                x = i / 10
+                if x == 1:
+                    tile = vc.Tile(2)
+                elif x == 2:
+                    tile = vc.Tile(1)
+                else:
+                    tile = vc.Tile(3)
+            else:
+                tile = vc.Tile()
+            tile.add(self.screen, int(self.track_cords[i][0]), int(self.track_cords[i][1]))
+            self.track.append(tile)
+
+        # draw inner track
+
+        with open("resources/home_tracks.txt") as file:
+            for count, line in enumerate(file):
                 x, y = line.strip().split(' : ')
-                base[count] = vc.Base(count)
-                base[count].add(screen, int(x), int(y))
+                tile = vc.HomeLineTile(floor(count / 4))
 
-    for i in range(players):
-        match i:
-            case 0:
-                for j in range(4):
-                    pawn = se.Object(vc.get_colored(i, "G"))
-                    pawns[i].append(pawn)
-            case 1:
-                for j in range(4):
-                    pawn = se.Object(vc.get_colored(i, "B"))
-                    pawns[i].append(pawn)
-            case 2:
-                for j in range(4):
-                    pawn = se.Object(vc.get_colored(i, "R"))
-                    pawns[i].append(pawn)
-            case 3:
-                for j in range(4):
-                    pawn = se.Object(vc.get_colored(i, "Y"))
-                    pawns[i].append(pawn)
+                tile.add(self.screen, int(x), int(y))
+                self.home_lines[floor(count / 4)].append(tile)
 
-    screen.show()
+        finish = se.Frame(3, 5, corner_chars=("╔", "╗", "╚", "╝"), state="solid")
+        finish.add(self.screen, 20, 12)
 
-    return track, home_lines, finish, pawns
+        # draw base
+
+        with open("resources/home_base.txt") as file:
+            for count, line in enumerate(file):
+                x, y = line.strip().split(' : ')
+                self.base.append(vc.Base(count))
+                self.base[count].add(self.screen, int(x), int(y))
+
+        # draw pawns
+
+        for i in range(players):
+            for j in range(4):
+                pawn = vc.Pawn(i)
+                self.pawns[i].append(pawn)
+                self.base[i].add_pawn(pawn)
+
+        self.screen.show()
+        # return track, home_lines, finish, pawns
+
+    def move(self, tile_out: int, tile_in: int):
+        pwn = self.track[tile_out].remove_pawn()
+        self.track[tile_in].add_pawn(pwn)
+
+    def move_from_base(self, color: int, tile: int):
+        pwn = self.base[color].remove_pawn()
+        self.track[tile].add_pawn(pwn)
+        self.screen.show()
+
+    def move_to_home_tiles(self, tile_out, color, tile_in):
+        pass
+
+    def move_to_base(self, tile):
+        col = self.track[tile].pawn.color
+        self.track[tile].remove_pawn()
+        self.base[col].add_pawn(self.pawns[col][0])
+
+    def set_cursor(self, tile_selected: int, tile_deselected: int = None):
+        # 1. could make a var to store cursor place
+        # 2. does not work in home tiles
+        # 3. does not work in base xd
+        # 4. need to find a way to pass arguments from controller
+        # to this function to work with 2. and 3.
+        # Passing tiles is no go.
+
+        if tile_deselected is not None:
+            self.track[tile_deselected].pawn.cursor_switch()
+        self.track[tile_selected].pawn.cursor_switch()
+
+        self.screen.show()
 
 
 def game(screen, matrix):
