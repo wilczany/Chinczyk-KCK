@@ -21,6 +21,8 @@ class GameView:
 
         self.base = []
 
+        self.cursor_pos = None
+
         colorama.init()
         # initiate map
 
@@ -92,11 +94,12 @@ class GameView:
         pass
 
     def move_to_base(self, tile):
-        col = self.track[tile].pawn.color
-        self.track[tile].remove_pawn()
-        self.base[col].add_pawn(self.pawns[col][0])
+        pwn = self.track[tile].remove_pawn()
+        self.base[pwn.color].add_pawn(pwn)
 
-    def set_cursor(self, tile_selected: int, tile_deselected: int = None):
+        self.screen.show()
+
+    def set_cursor(self, tile_selected: int):
         # 1. could make a var to store cursor place
         # 2. does not work in home tiles
         # 3. does not work in base xd
@@ -104,9 +107,10 @@ class GameView:
         # to this function to work with 2. and 3.
         # Passing tiles is no go.
 
-        if tile_deselected is not None:
-            self.track[tile_deselected].pawn.cursor_switch()
+        if self.cursor_pos is not None:
+            self.track[self.cursor_pos].pawn.cursor_switch()
         self.track[tile_selected].pawn.cursor_switch()
+        self.cursor_pos = tile_selected
 
         self.screen.show()
 

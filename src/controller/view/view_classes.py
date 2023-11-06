@@ -21,6 +21,7 @@ class Base(se.Frame):
         self.pawns.append(pawn)
         super().add_ob(pawn, self.cords[self.pawns_count][0], self.cords[self.pawns_count][1])
         self.pawns_count += 1
+        
 
     def remove_pawn(self):
         self.pawns_count -= 1
@@ -47,14 +48,15 @@ class Tile(se.Frame):
 
     def add_pawn(self, pawn):
         self.pawn = pawn
-        super().add_ob(pawn, 2, 1)
-        self.pawn.redraw()
+        super().add_ob(self.pawn, 2, 1)
+
 
     def remove_pawn(self):
         tmp = self.pawn
+        super().rem_ob(self.pawn)
+        self.pawn.remove()
         self.pawn = None
-        super().rem_ob(tmp)
-        tmp.remove()
+
         return tmp
 
 
@@ -83,7 +85,6 @@ class Pawn(se.Object):
             self.cursor = True
             self.rechar(get_colored(self.color, self.chars[self.color], "on_light_grey"))
 
-        #self.redraw()
 
     def action(self, ob):
         pass

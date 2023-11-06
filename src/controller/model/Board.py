@@ -10,7 +10,7 @@ class Board:
         for i in playersCount:
             self.camp.append(Color(1))
 
-        for i in range(41):
+        for i in range(40):
             self.board.append(Tile(i))
 
     def get_moves(self, color: Color, dice: int) -> [int]:

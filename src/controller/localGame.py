@@ -2,19 +2,15 @@ import random
 
 import curses
 from curses import wrapper
+import view.view as v
+import model as m
+class LocalGame:
 
+    def __init__(self, players: int):
 
-class Game:
+        self.view = v.GameView(players)
 
+        self.base = [
+            m.base(m.Color.GREEN)
+        ]
 
-def main(stdscr):
-    # Clear screen
-    stdscr.clear()
-
-    # This raises ZeroDivisionError when i == 10.
-    for i in range(0, 11):
-        v = i - 10
-        stdscr.addstr(i, 0, '10 divided by {} is {}'.format(v, 10 / v))
-
-    stdscr.refresh()
-    stdscr.getkey()

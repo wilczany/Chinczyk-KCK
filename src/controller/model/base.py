@@ -3,3 +3,5 @@ class base:
     def __init__(self, c: Color):
         self.color = c
         self.pons = int()
+
+

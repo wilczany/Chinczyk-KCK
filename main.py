@@ -4,6 +4,8 @@ from src.controller.view.view import game
 import scrap_engine as se
 from time import sleep
 
+import src.controller.keyboardHandler as keyhandler
+
 if __name__ == "__main__":
     # mymap = se.Map(background=" ")  # defines mymap as a map as big as the terminal window with the background " "
     # mytext = se.Text("Hello world")  # defines a text as "Hello world"
@@ -16,11 +18,18 @@ if __name__ == "__main__":
     # myrectangle.add(mymap, 2, 2)  # adds myrectangle to (2|2)
     # myframe.add(mymap, 1, 1)  # adds myframe to (1|1)
 
-    #mymap.show()  # now a frame with a rectangle and a text above it should be shown
+    # mymap.show()  # now a frame with a rectangle and a text above it should be shown
 
     view = GameView(3)
     view.move_from_base(0, 0)
     sleep(2)
-    view.move_from_base(1, 20)
-    view.set_cursor(0)
+    view.move_from_base(1, 1)
+    view.move_from_base(2, 2)
+    view.move_from_base(0, 3)
 
+    tab = [0, 3]
+
+    key_in = keyhandler.KeyboardListener(view)
+    dec = key_in.listen(tab)
+
+    view.move_to_base(dec)
