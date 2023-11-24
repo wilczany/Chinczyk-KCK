@@ -29,4 +29,5 @@ if __name__ == "__main__":
 
     plrs = menu.GameParams.players_count = 3
     view = GameView(plrs)
+    #xddd
 
