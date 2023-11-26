@@ -24,9 +24,13 @@ if __name__ == "__main__":
     #
     # view.move_to_base(dec)
 
-    m = menu.Menu()
-    m.run()
+    # m = menu.Menu()
+    # m.run()
 
-    plrs = menu.GameParams.players_count = 3
-    view = GameView(plrs)
+    # plrs = menu.GameParams.players_count = 3
+    # view = GameView(plrs)
 
+    # tab =[1]
+    #
+    # for i in range(len(tab)):
+    #     print("XD")

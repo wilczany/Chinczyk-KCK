@@ -3,28 +3,29 @@ from Tile import Tile
 
 
 class Board:
+    EMPTY = 0
 
     def __init(self, playersCount: int):
-        self.board = []
-        self.camp = []
+        self.board = [ 0 for i in range(40) ] # 40 tiles
+        
+
+
         for i in playersCount:
             self.camp.append(Color(1))
 
-        for i in range(40):
-            self.board.append(Tile(i))
 
-    def get_moves(self, color: Color, dice: int) -> [int]:
+    def get_moves(self, color: Color, dice: int):
         tab = []
+        can_move_from_base = False
+        p_pawns, p_at_base = self.get_pawns_location(color)
 
-        # TODO
-        # if dice == 6:
-        #     dodaj wyjscie z bazy
+        if p_at_base > 0 and dice ==6:
+            can_move_from_base = True
+        
+        for i in range(len(p_pawns)):
 
-        for tile in self.board:
-            if tile.can_move():
-                tab.append(tile.index)
-
-        return tab
+        
+        return tab, can_move_from_base
 
 
 class FinishLine:

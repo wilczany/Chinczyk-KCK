@@ -10,7 +10,13 @@ class LocalGame:
 
         self.view = v.GameView(players)
 
-        self.base = [
-            m.base(m.Color.GREEN)
-        ]
+        self.base = []
 
+        for i in range(players):
+    #         class Color(Enum):
+
+    # GREEN = 1
+    # BLUE = 2
+    # RED = 3
+    # YELLOW = 4
+            self.base.append(m.base())
