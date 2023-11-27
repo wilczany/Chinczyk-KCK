@@ -21,7 +21,6 @@ class Base(se.Frame):
         self.pawns.append(pawn)
         super().add_ob(pawn, self.cords[self.pawns_count][0], self.cords[self.pawns_count][1])
         self.pawns_count += 1
-        
 
     def remove_pawn(self):
         self.pawns_count -= 1
@@ -29,6 +28,10 @@ class Base(se.Frame):
         super().rem_ob(p)
         p.remove()
         return p
+    
+    def cursor_switch(self):
+        if self.pawns_count > 0:
+            self.pawns[self.pawns_count - 1].cursor_switch()
 
 
 class Tile(se.Frame):
@@ -58,6 +61,11 @@ class Tile(se.Frame):
         self.pawn = None
 
         return tmp
+
+    def cursor_switch(self):
+        if self.pawn is not None:
+            self.pawn.cursor_switch()    
+
 
 
 class HomeLineTile(se.Frame):

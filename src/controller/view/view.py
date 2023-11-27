@@ -5,7 +5,6 @@ from typing import List
 from math import floor
 
 
-
 class GameView:
     def __init__(self, players: int):
         self.track_cords = []
@@ -91,7 +90,14 @@ class GameView:
         self.screen.show()
 
     def move_to_home_tiles(self, tile_out, color, tile_in):
-        pass
+        pwn = self.track[tile_out].remove_pawn()
+
+        self.home_lines[color][tile_in].add_pawn(pwn)
+
+    def finish(self, color: int, tile: int):
+        pwn = self.home_lines[color][tile].remove_pawn()
+
+        # add 1 point to player
 
     def move_to_base(self, tile):
         pwn = self.track[tile].remove_pawn()
@@ -99,19 +105,35 @@ class GameView:
 
         self.screen.show()
 
-    def set_cursor(self, tile_selected: int):
+    def set_cursor(self, tile_selected: int, color_home=None):
         # 1. could make a var to store cursor place
         # 2. does not work in home tiles
         # 3. does not work in base xd
-        # 4. need to find a way to pass arguments from controller
+
         # to this function to work with 2. and 3.
         # Passing tiles is no go.
 
         if self.cursor_pos is not None:
-            self.track[self.cursor_pos].pawn.cursor_switch()
-        self.track[tile_selected].pawn.cursor_switch()
-        self.cursor_pos = tile_selected
+            self.cursor_pos.cursor_switch()
 
+        if color_home is not None:
+            self.cursor_pos = self.home_lines[color_home][tile_selected]
+        else:
+            self.cursor_pos = self.track[tile_selected]
+
+        self.cursor_pos.cursor_switch()
+        self.screen.show()
+
+    def set_cursor_base(self, color: int):
+        if self.cursor_pos is not None:
+            self.cursor_pos.pawn.cursor_switch()
+        self.cursor_pos = self.base[color]
+        self.cursor_pos.cursor_switch()
+        self.screen.show()
+
+    def remove_cursor(self):
+        self.cursor_pos.cursor_switch()
+        self.cursor_pos = None
         self.screen.show()
 
 
