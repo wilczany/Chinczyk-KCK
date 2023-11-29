@@ -54,3 +54,5 @@ class GameForm(npyscreen.ActionFormV2):
         self.names = []
         for i in range(self.parentApp.s):
             self.names.append(self.add(npyscreen.TitleText, name="Podaj imie gracza " + str(i + 1)))
+
+
