@@ -1,6 +1,6 @@
 import scrap_engine as se
 import colorama
-import src.controller.view.view_classes as vc
+import src.view.view_classes as vc
 from math import floor
 from typing import List
 
