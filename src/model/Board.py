@@ -90,6 +90,13 @@ class Board:
 
         pawn.move(dice)
 
+    def knock_out(self, position: int):
+        if self.board[position] == self.EMPTY:
+            return
+        else:
+            player = self.board[position] - 1
+            self.players[player].pawn_kicked_out(position)
+
     def update_position(self, pawn: P.Pawn, color: int, dice: int, at_home: bool):
         if at_home:
             self.home_lines[color][pawn.position] = self.EMPTY

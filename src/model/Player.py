@@ -56,8 +56,10 @@ class Player:
 
     def pawn_kicked_out(self, position: int):
 
-        tmp = [-1 if x == position else x for x in self.pawns]
-        self.pawns = tmp
+        for i in range(4):
+            if self.pawns[i].position == position:
+                self.pawns[i].knocked_out()
+                self.pieces_at_base += 1
 
     def get_pawns(self):
         return self.pawns

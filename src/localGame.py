@@ -106,7 +106,9 @@ class LocalGame:
                 self.view.move_to_home(player, chosen_pawn.position, next_pos)
         else:
             next_pos = (chosen_pawn.position + dice) % 40
+            self.board.knock_out(next_pos)
             self.view.move_on_track(chosen_pawn.position, next_pos)
+
 
         self.board.move(player, chosen_pawn, dice)
 
