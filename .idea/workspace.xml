@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7b76af53-8ed3-4212-9b2a-731659dcce0d" name="Changes" comment="Ruszamy ponownie! Update menu">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="7b76af53-8ed3-4212-9b2a-731659dcce0d" name="Changes" comment="zmiany w importach">
+      <change beforePath="$PROJECT_DIR$/.idea/Chinczyk-KCK_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Chinczyk-KCK_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/track.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/track.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/keyboardHandler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/keyboardHandler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/model/Board.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/model/Board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/model/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/model/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/view/view.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/view/view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/view/view_classes.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/view/view_classes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/localGame.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/localGame.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,20 +23,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "wilczany"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="31b4bb16-e662-4f63-b34f-e4c38d26e52d" />
-        <option name="url" value="https://github.com/wilczany/Chinczyk-KCK.git" />
-      </UrlAndAccount>
-    </option>
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/JetBrains/PyCharm2023.2/python_stubs/125820455/builtins.py" root0="SKIP_INSPECTION" />
@@ -61,7 +42,6 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/wilczany/PycharmProjects/Chinczyk-KCK_project&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -85,6 +65,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (Chinczyk-KCK)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -127,17 +108,11 @@
       <workItem from="1698835012328" duration="47000" />
       <workItem from="1698835073301" duration="119000" />
       <workItem from="1698835200759" duration="30000" />
-      <workItem from="1700846355540" duration="1093000" />
-      <workItem from="1700958766529" duration="143000" />
-      <workItem from="1700958920847" duration="1836000" />
-      <workItem from="1700967297738" duration="186000" />
-      <workItem from="1701002866064" duration="2000" />
-      <workItem from="1701010061075" duration="6628000" />
-      <workItem from="1701034758755" duration="56000" />
-      <workItem from="1701048152173" duration="1787000" />
-      <workItem from="1701053291146" duration="955000" />
-      <workItem from="1701088279394" duration="3965000" />
-      <workItem from="1701094540927" duration="1356000" />
+      <workItem from="1701179652174" duration="277000" />
+      <workItem from="1701187966348" duration="132000" />
+      <workItem from="1701214079591" duration="1880000" />
+      <workItem from="1701356086845" duration="1146000" />
+      <workItem from="1701358258138" duration="507000" />
     </task>
     <task id="LOCAL-00001" summary="praca z widokiem">
       <option name="closed" value="true" />
@@ -155,31 +130,23 @@
       <option name="project" value="LOCAL" />
       <updated>1698693053399</updated>
     </task>
-    <task id="LOCAL-00003" summary="plansza gotowa">
+    <task id="LOCAL-00003" summary="zmiany w importach">
       <option name="closed" value="true" />
-      <created>1700846537739</created>
+      <created>1701356631598</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1700846537739</updated>
+      <updated>1701356631598</updated>
     </task>
-    <task id="LOCAL-00004" summary="test git">
+    <task id="LOCAL-00004" summary="zmiany w importach">
       <option name="closed" value="true" />
-      <created>1700846840834</created>
+      <created>1701356800964</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1700846840834</updated>
+      <updated>1701356800964</updated>
     </task>
-    <task id="LOCAL-00005" summary="Ruszamy ponownie! Update menu">
-      <option name="closed" value="true" />
-      <created>1700847450098</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1700847450098</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,12 +170,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="praca z widokiem" />
     <MESSAGE value="plansza gotowa" />
-    <MESSAGE value="test git" />
-    <MESSAGE value="Ruszamy ponownie! Update menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ruszamy ponownie! Update menu" />
+    <MESSAGE value="zmiany w importach" />
+    <option name="LAST_COMMIT_MESSAGE" value="zmiany w importach" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pythonProject$main.coverage" NAME="main Coverage Results" MODIFIED="1697653923086" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Chinczyk_KCK$main.coverage" NAME="main Coverage Results" MODIFIED="1701090758188" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Chinczyk_KCK$main.coverage" NAME="main Coverage Results" MODIFIED="1701215800764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

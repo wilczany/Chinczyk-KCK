@@ -26,25 +26,30 @@ class LocalGame:
             for player in range(players_in_game):
 
                 self.view.display_message(Message.PLAYER_TURN, self.players_names[player])
-                time.sleep(0.5)
-                self.view.display_message(Message.THROW_DICE)
-                dice_action = self.ac.get_action()
-                while dice_action != Action.SELECT:
-                    dice_action = self.ac.get_action()
+                time.sleep(1)
 
-                dice = random.randint(1, 6)
-
-                self.view.dice_show(dice)
+                dice = self.throw_dice()
 
                 self.player_move(player, dice)
                 if dice == 6:
                     self.view.display_message(Message.EXTRA_TURN, self.players_names[player])
+                    time.sleep(1)
+                    dice = self.throw_dice()
                     self.player_move(player, dice)
                     if dice == 6:
-                        self.view.display_message(Message.LOST_TURN, self.players_names[player])
+                        self.view.display_message(Message.EXTRA_TURN, self.players_names[player])
+                        time.sleep(1)
+                        dice = self.throw_dice()
+
+                        if dice == 6:
+                            self.view.display_message(Message.LOST_TURN, self.players_names[player])
+                            time.sleep(1)
+                            continue
+                        else:
+                            self.player_move(player, dice)
 
         winner, player = self.board.check_win()
-        
+
         if winner:
             self.view.display_message(Message.WINNER, self.players_names[player])
             time.sleep(5)
@@ -104,3 +109,15 @@ class LocalGame:
             self.view.move_on_track(chosen_pawn.position, next_pos)
 
         self.board.move(player, chosen_pawn, dice)
+
+    def throw_dice(self):
+        self.view.display_message(Message.THROW_DICE)
+        dice_action = None
+        while dice_action != Action.SELECT:
+            dice_action = self.ac.get_action()
+
+        dice = random.randint(1, 6)
+
+        self.view.dice_show(dice)
+
+        return dice
