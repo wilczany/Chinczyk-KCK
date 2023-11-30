@@ -9,11 +9,12 @@ if __name__ == "__main__":
     # import src.view.menu as m
     # import src.view.view as v
     # import src.model.board as b
+    # import src.view.view_classes as vc
 
     # menu = m.Menu().run()
     # view = v.GameView(4)
     # board = b.Board(4)
-    
+
     # *******************************
     # *          TESTING            *
     # *******************************

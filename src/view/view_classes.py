@@ -153,7 +153,7 @@ class TextFrame(se.Frame):
                 self.dice.rechar(DICE6)
 
     def display_message(self, typ: Message, addr: str = None):
-        if typ == Message.PLAYER_TURN:
+        if typ == Message.PLAYER_TURN or typ == Message.WINNER:
             text = typ.value.format(addr)
             self.text.rechar(text)
         else:
