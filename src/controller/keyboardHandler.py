@@ -1,153 +1,129 @@
-import threading
-from enum import Enum, auto
 import sys
 import time
+from enum import Enum, auto
 
-# from pynput.keyboard import Key, Listener, Controller
-#
-# from src.controller.view.view import GameView as GV
-#
-#
-# class KeyboardListener:
-#
-#     def __init__(self, view: GV):
-#         self.view = view
-#         self.i = 0
-#         self.moves = []
-#         self.moves_count = int()
-#
-#     def on_press(self, key):
-#         if key == Key.right:
-#             self.i = (self.i + 1) % self.moves_count
-#             self.view.set_cursor(self.moves[self.i])
-#         elif key == Key.left:
-#             self.i = (self.i - 1) % self.moves_count
-#             self.view.set_cursor(self.moves[self.i])
-#
-#     def listen(self, possible_moves: list):
-#         self.moves = possible_moves
-#         self.moves_count = len(possible_moves)
-#         self.view.set_cursor(self.moves[0])
-#         # noinspection PyTypeChecker
-#         with (Listener(
-#                 on_press=self.on_press, ) as listener):
-#             listener.join()
-#         return self.i
+
 
 class Action(Enum):
-    LEFT = 0
-    RIGHT = 1
-    SELECT = 2
-    HELP = 3
-    EXIT = 4
-
-    @property
-    def mapping(self):
-        """Returns the current mapped char"""
-        return get_mapping(self, hotkey_mappings)
+    LEFT = auto()
+    RIGHT = auto()
+    SELECT = auto()
+    HELP = auto()
+    EXIT = auto()
 
 
-class Event:
+class GetUserAction:
 
-    def __init__(self, event=""):
-        self._ev = event
-        self.emit_fn = None
+    def __init__(self, ):
+        self.i = 0
+        self.moves = []
+        if sys.platform == "win32":
+            import msvcrt
+        else:
+            import tty, termios, select
 
-    def get(self):
-        """Getter
-        RETURNS:
-            Current char"""
-        return self._ev
+            self.fd = sys.stdin.fileno()
+            self.old_settings = termios.tcgetattr(self.fd)
+            tty.setraw(self.fd)
+            time.sleep(0.1)
 
-    def set(self, event):
-        """Setter
-        ARGS:
-            event: New char"""
-        self._ev = event
-        self.emit_fn()
+    def get_action(self) -> Action:
+        if sys.platform == "win32":
+            import msvcrt
+            ch = msvcrt.getch()
 
-    def clear(self):
-        """Clears the event"""
-        self._ev = ""
+            # TODO: CHECK IT
+            match ch:
+                case b'\xe0':
+                    ch = msvcrt.getch()
+                    match ch:
+                        case b'H':
+                            return Action.LEFT
+                        case b'P':
+                            return Action.RIGHT
+                case b' ':
+                    return Action.SELECT
+                case b'q':
+                    return Action.EXIT
+                case b'h':
+                    return Action.HELP
+                case b'?':
+                    return Action.HELP
+                case b'\x03':
+                    raise KeyboardInterrupt
+                case _:
+                    return Action.EXIT
 
-    def set_emit_fn(self, emit_fn):
-        """Sets the method used to emit events to the timer"""
-        self.emit_fn = emit_fn
+            #  *** OR THIS ***
+
+            # while True:
+            # if msvcrt.kbhit():
+            #     char = msvcrt.getwch()
+            #     if char in ('\000', '\xe0'):
+            #         arrow = msvcrt.getwch()
+            #         if arrow == 'H':
+            #             print('up')
+            #         elif arrow == 'P':
+            #             print('down')
+            #         elif arrow == 'K':
+            #             print('left')
+            #         elif arrow == 'M':
+            #             print('right')
+            #     elif char == ' ':
+            #         print('space')
+            #     else:
+            #         print(char)
+
+        else:
+            import tty
+            import termios
+            import select
+            fd = sys.stdin.fileno()
+            old_settings = termios.tcgetattr(fd)
+            tty.setraw(fd)
+            time.sleep(0.1)
+
+            rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
+
+            if rlist:
+                ch = sys.stdin.read(1)
+                if ord(ch) == 3:
+                    print("exit")
+                    termios.tcsetattr(self.fd, termios.TCSADRAIN, self.old_settings)
+                    raise KeyboardInterrupt
+                elif ch == '\x1b':
+                    ch = sys.stdin.read(1)  # Read the next character
+                    if ch == '[':
+                        ch = sys.stdin.read(1)  # Read the character after [
+                        if ch == 'A':
+                            return Action.RIGHT
+                        elif ch == 'B':
+                            return Action.LEFT
+                        elif ch == 'C':
+                            return Action.RIGHT
+                        elif ch == 'D':
+                            return Action.LEFT
+                elif ch == ' ':
+                    return Action.SELECT
+                elif ch == 'q':
+                    return Action.EXIT
+                elif ch == 'h':
+                    return Action.HELP
+
+    def reset_term(self):
+        if sys.platform != "win32":
+            import termios
+            termios.tcsetattr(self.fd, termios.TCSADRAIN, self.old_settings)
 
 
-_ev = Event()
-
-
-class ActionList(list):
-
-    def triggers(self, *actions):
-        """Checks if the self triggers a set of actions"""
-        for action in actions:
-            if action in self:
-                return True
-        return False
-
-
-EMPTY_ACTIONLIST = ActionList()
-ACTION_CONTROLS = (Action.LEFT, Action.RIGHT, Action.SELECT, Action.HELP, Action.EXIT)
-
-hotkey_mappings = {
-    "Key.left": Action.LEFT,
-    "Key.up": Action.LEFT,
-    "key.right": Action.RIGHT,
-    "key.down": Action.RIGHT,
-    "key.space": Action.SELECT,
-    "h": Action.HELP,
-    '?': Action.HELP,
-    'q': Action.EXIT
-}
-
-
-def get_action():
-    retval = EMPTY_ACTIONLIST
-    raw_input = _ev.get()
-    if raw_input == "exit":
-        raise KeyboardInterrupt
-    if raw_input in hotkey_mappings:
-        retval = hotkey_mappings[raw_input]
-    _ev.clear()
-    return retval
-
-
-def get_mapping(action, keys):
-    for key, action_list in keys.items():
-        if action in action_list:
-            return key
-
-
-def test_keyboard():
-
+def get_user_action():
     if sys.platform == "win32":
-        import msvcrt
-        while True:
-            if msvcrt.kbhit():
-                char = msvcrt.getwch()
-                if char in ('\000', '\xe0'):
-                    arrow = msvcrt.getwch()
-                    if arrow == 'H':
-                        print('up')
-                    elif arrow == 'P':
-                        print('down')
-                    elif arrow == 'K':
-                        print('left')
-                    elif arrow == 'M':
-                        print('right')
-                elif char == ' ':
-                    print('space')
-                else:
-                    print(char)
-
+        # TODO: implement windows keyboard listener
+        pass
     else:
         import tty
         import termios
         import select
-
-        global fd, old_settings
 
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
@@ -156,14 +132,27 @@ def test_keyboard():
 
         while True:
 
-                rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
-                if rlist:
-                    ch = sys.stdin.read(1)
-                    print(ch)
-                    if ord(ch) == 0:
-                        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
-
-
-
+            rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
+            if rlist:
+                ch = sys.stdin.read(1)
+                if ord(ch) == 3:
+                    print("exit")
+                    termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+                    break
+                elif ch == '\x1b':
+                    ch = sys.stdin.read(1)  # Read the next character
+                    if ch == '[':
+                        ch = sys.stdin.read(1)  # Read the character after [
+                        if ch == 'A':
+                            pass
+                            # view.
+                        elif ch == 'B':
+                            print("down")
+                        elif ch == 'C':
+                            print("right")
+                        elif ch == 'D':
+                            print("left")
+                elif ch == ' ':
+                    print('space')
 
 

@@ -15,7 +15,12 @@ class Color(Enum):
 class Player:
 
     def __init__(self, color: Color):
-        self.pawns = [Pawn(color.value) for i in range(4)]
+        self.pawns = [
+            Pawn(color.value),
+            Pawn(color.value),
+            Pawn(color.value),
+            Pawn(color.value)
+        ]
         self.steps = [0, 0, 0, 0]
         self.start = int()
         self.pieces_at_base = 4
@@ -30,9 +35,9 @@ class Player:
                 self.start = 30
 
     def get_pawns_location(self):
-        postitions = []
+        positions = []
         for p in self.pawns:
-            postitions.append(p.position)
+            positions.append(p.position)
 
     def set_pawn_location(self, pawn: int, location: int):
 
@@ -63,6 +68,7 @@ class Pawn:
     def __init__(self, color: int):
         self.steps = 0
         self.at_base = True
+        self.at_home = False
         self.Finished = False
         self.position = -1
         self.color = color
@@ -72,16 +78,37 @@ class Pawn:
         self.position = start
 
     def move(self, dice: int):
-        self.steps += dice
-        self.position = (self.position + dice) % 40
 
+        if self.next_move_finish(dice):
+
+            self.Finished = True
+            self.steps += dice
+            if self.steps != 44:
+                raise Exception("Pawn not finished but steps == 44")
+        elif self.next_move_home(dice):
+
+            self.at_home = True
+            self.steps += dice
+            self.position = self.steps % 10
+        else:
+            self.position = (self.position + dice) % 40
+            self.steps += dice
+            
     def knocked_out(self):
         self.at_base = True
         self.position = -1
         self.steps = 0
+
+    def can_move(self, dice: int):
+        
+        if self.at_base:
+            return dice == 6
+        else:
+            return self.steps + dice <= 44
 
     def next_move_finish(self, dice: int):
         return self.steps + dice == 44
 
     def next_move_home(self, dice: int):
         return 44 >= self.steps + dice >= 40
+

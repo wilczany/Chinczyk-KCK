@@ -5,16 +5,22 @@ import npyscreen
 
 class GameParams:
     players_count = int()
+    players_names_count = 0
+    players_names = []
+    run = False
 
 
 class Menu(npyscreen.NPSAppManaged):
     def onStart(self):
         self.registerForm('MAIN', MainForm())
-        self.registerForm('PLAYERS_COUNT', PlayerForm())
-        # self.registerForm('GAME', GameForm())
+        self.registerForm('PLAYERS_COUNT', PlayerCountForm())
+        for player in range(4):
+            form = PlayerForm(name='PLAYER{}'.format(player + 1))
+            self.registerForm('PLAYER{}'.format(player + 1), form)
 
     def onCleanExit(self):
         curses.endwin()
+
 
 class MainForm(npyscreen.ActionFormMinimal):
     choices = ['Graj', 'Wyjdz']
@@ -32,9 +38,12 @@ class MainForm(npyscreen.ActionFormMinimal):
             self.parentApp.switchForm('PLAYERS_COUNT')
         else:
             self.parentApp.setNextForm(None)
+    
+    def on_cancel(self):
+        raise self.parentApp.setNextForm(None)
 
 
-class PlayerForm(npyscreen.ActionFormV2, npyscreen.Popup):
+class PlayerCountForm(npyscreen.ActionFormV2, npyscreen.Popup):
 
     def create(self):
         self.add(npyscreen.TitleText, name="Podaj liczbe graczy", editable=False)
@@ -42,17 +51,33 @@ class PlayerForm(npyscreen.ActionFormV2, npyscreen.Popup):
 
     def on_ok(self):
         GameParams.players_count = int(self.count.value)
-        self.parentApp.setNextForm(None)
+        self.parentApp.setNextForm('PLAYER1')
 
     def on_cancel(self):
         self.parentApp.switchForm('MAIN')
 
 
-class GameForm(npyscreen.ActionFormV2):
+class PlayerForm(npyscreen.ActionFormV2):
 
     def create(self):
-        self.names = []
-        for i in range(self.parentApp.s):
-            self.names.append(self.add(npyscreen.TitleText, name="Podaj imie gracza " + str(i + 1)))
 
+        self.add(npyscreen.TitleText, name="Podaj imie gracza "
+                                           + str(self.name)[-1] + ". :",
+                 editable=False)
+        self.player_name = self.add(npyscreen.TitleText, name="Imie")
 
+    def on_ok(self):
+
+        name = self.player_name.value
+        GameParams.players_names.append(name)
+        GameParams.players_names_count += 1
+        if GameParams.players_names_count == GameParams.players_count:
+            GameParams.run = True
+            self.parentApp.setNextForm(None)
+        else:
+            # self.parentApp.setNextForm('PLAYER{}'.format(GameParams.players_names_count + 1))
+            self.parentApp.setNextForm('PLAYER' + str(int(self.name[-1]) + 1))
+
+    def on_cancel(self):
+        GameParams.players_names.clear()
+        self.parentApp.switchForm('MAIN')
