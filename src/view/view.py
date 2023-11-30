@@ -1,11 +1,8 @@
 import scrap_engine as se
 import colorama
 import src.controller.view.view_classes as vc
-from typing import List
 from math import floor
 from typing import List
-
-from src.controller.model.Player import Pawn
 
 
 class GameView:

@@ -1,5 +1,4 @@
 # from src.controller.view.menu import App
-from src.controller.view.view import GameView
 
 if __name__ == "__main__":
 
@@ -45,8 +44,11 @@ if __name__ == "__main__":
     # *          TESTING            *
     # *******************************
 
-    import src.controller.localGame as localGame
+    import src.localGame as localGame
     import src.controller.view.menu as m
+    import curses
+
+    stdscr = curses.initscr()
 
     menu = m.Menu().run()
     if not m.GameParams.run:
@@ -56,5 +58,3 @@ if __name__ == "__main__":
 
     game = localGame.LocalGame(arr)
     game.start()
-
-

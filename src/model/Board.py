@@ -1,4 +1,4 @@
-import src.controller.model.Player as P
+import src.model.Player as P
 
 class Board:
     EMPTY = 0
@@ -102,6 +102,12 @@ class Board:
         self.board[self.startingTiles[color]] = color + 1
 
         self.players[color].pawn_start()
+
+    def check_win(self):
+        for index, player in enumerate(self.players):
+            if all(pawn.Finished for pawn in player.get_pawns()):
+                return True, index
+        return False, None
 
 
 class FinishLine:

@@ -54,26 +54,6 @@ class GetUserAction:
                 case _:
                     return Action.EXIT
 
-            #  *** OR THIS ***
-
-            # while True:
-            # if msvcrt.kbhit():
-            #     char = msvcrt.getwch()
-            #     if char in ('\000', '\xe0'):
-            #         arrow = msvcrt.getwch()
-            #         if arrow == 'H':
-            #             print('up')
-            #         elif arrow == 'P':
-            #             print('down')
-            #         elif arrow == 'K':
-            #             print('left')
-            #         elif arrow == 'M':
-            #             print('right')
-            #     elif char == ' ':
-            #         print('space')
-            #     else:
-            #         print(char)
-
         else:
             import tty
             import termios

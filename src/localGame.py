@@ -1,10 +1,10 @@
 import random
+import time
 
-from .keyboardHandler import Action, GetUserAction
-from src.controller.model.Board import Board
-from src.controller.model.Player import Pawn
-from src.controller.view.view import GameView
-from src.controller.view.view_classes import Message
+from src.view.keyboardHandler import Action, GetUserAction
+from src.model.Board import Board
+from src.view.view import GameView
+from src.view.view_classes import Message
 
 
 class LocalGame:
@@ -26,6 +26,8 @@ class LocalGame:
             for player in range(players_in_game):
 
                 self.view.display_message(Message.PLAYER_TURN, self.players_names[player])
+                time.sleep(0.5)
+                self.view.display_message(Message.THROW_DICE)
                 dice_action = self.ac.get_action()
                 while dice_action != Action.SELECT:
                     dice_action = self.ac.get_action()
@@ -41,15 +43,23 @@ class LocalGame:
                     if dice == 6:
                         self.view.display_message(Message.LOST_TURN, self.players_names[player])
 
+        winner, player = self.board.check_win()
+        
+        if winner:
+            self.view.display_message(Message.WINNER, self.players_names[player])
+            time.sleep(5)
+            exit(0)
+
     def player_move(self, player: int, dice: int):
         possible_moves = self.board.get_moves(player, dice)
 
         cursor_positions = []
         ln = len(possible_moves)
         if ln == 0:
-            # view.no_moves(player)
+            self.view.display_message(Message.NO_MOVES)
+            time.sleep(1)
             return
-
+        self.view.display_message(Message.CHOOSE)
         i = 0
         for pawn in possible_moves:
             if pawn.at_base:

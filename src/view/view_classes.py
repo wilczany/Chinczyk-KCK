@@ -4,19 +4,6 @@ import scrap_engine as se
 from termcolor import colored
 
 
-class StdandardFrame(se.Frame):
-    """Standardized frame
-    ARGS:
-        height: The frames height
-        width: The frames width"""
-
-    def __init__(self, height, width):
-        super().__init__(width=width, height=height,
-                         corner_chars=["┌", "┐", "└", "┘"],
-                         horizontal_chars=["─", "─"],
-                         vertical_chars=["│", "│"], state="float")
-
-
 class Base(se.Frame):
     cords = [(2, 1), (2, 3), (4, 1), (4, 3)]
 
@@ -134,6 +121,7 @@ class Message(Enum):
     LOST_TURN = "Wyrzuciłeś 3 razy 6. Tracisz kolejkę"
     PLAYER_TURN = "Ruch gracza {} : "
     CHOOSE = "Wybierz pionek używając strzałek. Zatwierdź spacją"
+    WINNER = "Wygrał gracz {}"
 
 
 class TextFrame(se.Frame):
